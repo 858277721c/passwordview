@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.InputFilter;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 public class FPasswordView extends EditText
@@ -44,12 +46,25 @@ public class FPasswordView extends EditText
         super.setPadding(0, 0, 0, 0);
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        if (event.getAction() == MotionEvent.ACTION_DOWN)
+        {
+            final InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            setFocusable(true);
+            requestFocus();
+            manager.showSoftInput(this, InputMethodManager.SHOW_FORCED);
+        }
+        return false;
+    }
+
     /**
      * 设置密码长度
      *
      * @param count
      */
-    public final void setItemCount(int count)
+    public void setItemCount(int count)
     {
         if (count <= 0)
             throw new IllegalArgumentException();
@@ -70,7 +85,7 @@ public class FPasswordView extends EditText
      *
      * @param margin
      */
-    public final void setItemMargin(int margin)
+    public void setItemMargin(int margin)
     {
         if (margin <= 0)
             throw new IllegalArgumentException();
@@ -88,7 +103,7 @@ public class FPasswordView extends EditText
      *
      * @param width
      */
-    public final void setItemStrokeWidth(int width)
+    public void setItemStrokeWidth(int width)
     {
         if (width < 0)
             width = 0;
@@ -100,7 +115,7 @@ public class FPasswordView extends EditText
         }
     }
 
-    public final void setItemStrokeColor(int color)
+    public void setItemStrokeColor(int color)
     {
         if (mItemStrokeColor != color)
         {
