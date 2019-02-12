@@ -119,15 +119,13 @@ public class FPasswordView extends EditText
         if (itemWidth <= 0)
             return;
 
-        final String text = getText().toString();
-
         mPaintStroke.setColor(mItemStrokeColor);
         mPaintStroke.setStrokeWidth(mItemStrokeWidth);
-
 
         int startX = 0;
         final int bottomY = getHeight();
 
+        final String text = getText().toString();
         for (int i = 0; i < mItemCount; i++)
         {
             if (i > 0)
@@ -142,7 +140,7 @@ public class FPasswordView extends EditText
                 final float textItemWidth = getPaint().measureText(textItem);
 
                 final float textX = startX + ((itemWidth - textItemWidth) / 2);
-                final float textY = bottomY - mItemStrokeWidth;
+                final float textY = getBaseline();
                 canvas.drawText(String.valueOf(textItem), textX, textY, getPaint());
             }
 
