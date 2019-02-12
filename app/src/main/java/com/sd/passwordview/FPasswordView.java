@@ -140,7 +140,7 @@ public class FPasswordView extends EditText
                 final float textItemWidth = getPaint().measureText(textItem);
 
                 final float textX = startX + ((itemWidth - textItemWidth) / 2);
-                final float textY = getBaseline();
+                final float textY = getHeight() - mItemStrokeWidth - getPaint().getFontMetrics().descent;
                 canvas.drawText(String.valueOf(textItem), textX, textY, getPaint());
             }
 
