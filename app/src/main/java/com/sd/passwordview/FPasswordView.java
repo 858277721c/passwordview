@@ -138,10 +138,7 @@ public class FPasswordView extends EditText
 
             right = left + itemWidth;
 
-            if (mItemBackground != null)
-            {
-                canvas.drawBitmap(mItemBackground, null, new Rect(left, top, right, bottom), getPaint());
-            }
+            onDrawItemBackground(canvas, left, top, right, bottom);
 
             if (i < text.length())
             {
@@ -155,6 +152,14 @@ public class FPasswordView extends EditText
             }
 
             left = right;
+        }
+    }
+
+    protected void onDrawItemBackground(Canvas canvas, int left, int top, int right, int bottom)
+    {
+        if (mItemBackground != null)
+        {
+            canvas.drawBitmap(mItemBackground, null, new Rect(left, top, right, bottom), getPaint());
         }
     }
 }
