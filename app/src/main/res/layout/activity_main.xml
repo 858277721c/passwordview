@@ -29,6 +29,14 @@
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:textSize="30sp"
-        app:pvItemCount="5" />
+        app:pvItemCount="5"
+        app:pvPasswordPlaceholder="*" />
+
+    <com.sd.lib.passwordview.FPasswordView
+        android:id="@+id/view_password_3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:textSize="30sp" />
 
 </LinearLayout>

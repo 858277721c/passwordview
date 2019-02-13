@@ -36,7 +36,7 @@ public class FPasswordView extends EditText
         int itemCount = 4;
         int itemMargin = (int) (getResources().getDisplayMetrics().density * 10);
         int itemBackgroundResource = R.drawable.lib_passwordview_bg_item;
-        String passwordPlaceholder = "*";
+        String passwordPlaceholder = "●";
 
         if (attrs != null)
         {
