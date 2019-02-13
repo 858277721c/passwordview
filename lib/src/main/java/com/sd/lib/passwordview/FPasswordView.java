@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
@@ -110,7 +111,7 @@ public class FPasswordView extends FrameLayout
                 final TextView textView = new TextView(getContext());
                 textView.setGravity(Gravity.CENTER);
                 textView.setTextColor(mItemTextColor);
-                textView.setTextSize(mItemTextSize);
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mItemTextSize);
                 textView.setBackgroundResource(mItemBackgroundResource);
 
                 final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
