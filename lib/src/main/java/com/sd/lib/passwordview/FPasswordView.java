@@ -1,6 +1,7 @@
 package com.sd.lib.passwordview;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.text.InputFilter;
@@ -29,10 +30,24 @@ public class FPasswordView extends EditText
         super.setPadding(0, 0, 0, 0);
         super.setGravity(Gravity.CENTER);
 
-        mItemCount = 4;
-        mItemMargin = (int) (getResources().getDisplayMetrics().density * 10);
+        int itemCount = 4;
+        int itemMargin = (int) (getResources().getDisplayMetrics().density * 10);
+        int itemBackgroundResource = R.drawable.lib_passwordview_bg_item;
 
-        setFilters(new InputFilter[]{new InputFilter.LengthFilter(mItemCount)});
+        if (attrs != null)
+        {
+            final TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.LibPasswordView);
+
+            itemCount = a.getInteger(R.styleable.LibPasswordView_pvItemCount, itemCount);
+            itemMargin = a.getDimensionPixelSize(R.styleable.LibPasswordView_pvItemMargin, itemMargin);
+            itemBackgroundResource = a.getResourceId(R.styleable.LibPasswordView_pvItemBackground, itemBackgroundResource);
+
+            a.recycle();
+        }
+
+        setItemCount(itemCount);
+        setItemMargin(itemMargin);
+        setItemBackgroundResource(itemBackgroundResource);
     }
 
     @Override
