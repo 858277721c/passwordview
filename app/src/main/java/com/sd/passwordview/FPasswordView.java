@@ -1,10 +1,8 @@
 package com.sd.passwordview;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.text.InputFilter;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -17,7 +15,7 @@ public class FPasswordView extends EditText
     private int mItemCount;
     private int mItemMargin;
     private int mItemBackgroundResource;
-    private Bitmap mItemBackground;
+    private Drawable mItemBackgroundDrawable;
 
     public FPasswordView(Context context, AttributeSet attrs)
     {
@@ -111,10 +109,10 @@ public class FPasswordView extends EditText
 
             try
             {
-                mItemBackground = BitmapFactory.decodeResource(getResources(), resId);
+                mItemBackgroundDrawable = getResources().getDrawable(resId);
             } catch (Exception e)
             {
-                mItemBackground = null;
+                mItemBackgroundDrawable = null;
             }
 
             invalidate();
@@ -161,9 +159,10 @@ public class FPasswordView extends EditText
 
     protected void onDrawItemBackground(Canvas canvas, int left, int top, int right, int bottom)
     {
-        if (mItemBackground != null)
+        if (mItemBackgroundDrawable != null)
         {
-            canvas.drawBitmap(mItemBackground, null, new Rect(left, top, right, bottom), getPaint());
+            mItemBackgroundDrawable.setBounds(left, top, right, bottom);
+            mItemBackgroundDrawable.draw(canvas);
         }
     }
 }

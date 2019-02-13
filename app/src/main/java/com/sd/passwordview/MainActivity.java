@@ -14,6 +14,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         mPasswordView = findViewById(R.id.view_password);
 
-        mPasswordView.setItemBackgroundResource(R.drawable.bg);
+        mPasswordView.setItemBackgroundResource(R.drawable.bg_item);
     }
 }
