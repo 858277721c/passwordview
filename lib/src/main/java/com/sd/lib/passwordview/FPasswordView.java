@@ -3,7 +3,8 @@ package com.sd.lib.passwordview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -27,7 +28,8 @@ public class FPasswordView extends FrameLayout
     private int mItemTextColor;
     private int mItemTextSize;
     private int mItemMargin;
-    private int mItemBackgroundResource;
+    private Drawable mItemDivider;
+    private Drawable mItemBackground;
 
     private String mPasswordPlaceholder;
 
@@ -39,18 +41,19 @@ public class FPasswordView extends FrameLayout
 
         mLinearLayout = new LinearLayout(context);
         mLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        mLinearLayout.setGravity(Gravity.CENTER);
+        mLinearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         addView(mLinearLayout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         mEditText = new InternalEditText(context);
         addView(mEditText, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        int itemCount = 4;
-        int itemTextColor = Color.BLACK;
-        int itemTextSize = (int) (getResources().getDisplayMetrics().scaledDensity * 13);
-        int itemMargin = (int) (getResources().getDisplayMetrics().density * 10);
-        int itemBackgroundResource = R.drawable.lib_passwordview_bg_item;
-        String passwordPlaceholder = "●";
+        int itemCount = getResources().getInteger(R.integer.lib_passwordview_item_count);
+        int itemTextColor = getResources().getColor(R.color.lib_passwordview_text_item);
+        int itemTextSize = getResources().getDimensionPixelSize(R.dimen.lib_passwordview_text_item);
+        int itemMargin = getResources().getDimensionPixelSize(R.dimen.lib_passwordview_margin_item);
+        Drawable itemDivider = null;
+        Drawable itemBackground = null;
+        String passwordPlaceholder = getResources().getString(R.string.lib_passwordview_password_placeholder);
 
         if (attrs != null)
         {
@@ -60,7 +63,12 @@ public class FPasswordView extends FrameLayout
             itemTextColor = a.getColor(R.styleable.LibPasswordView_pvItemTextColor, itemTextColor);
             itemTextSize = a.getDimensionPixelSize(R.styleable.LibPasswordView_pvItemTextSize, itemTextSize);
             itemMargin = a.getDimensionPixelSize(R.styleable.LibPasswordView_pvItemMargin, itemMargin);
-            itemBackgroundResource = a.getResourceId(R.styleable.LibPasswordView_pvItemBackground, itemBackgroundResource);
+
+            if (a.hasValue(R.styleable.LibPasswordView_pvItemBackground))
+                itemBackground = a.getDrawable(R.styleable.LibPasswordView_pvItemBackground);
+
+            if (a.hasValue(R.styleable.LibPasswordView_pvItemDivider))
+                itemDivider = a.getDrawable(R.styleable.LibPasswordView_pvItemDivider);
 
             if (a.hasValue(R.styleable.LibPasswordView_pvPasswordPlaceholder))
                 passwordPlaceholder = a.getString(R.styleable.LibPasswordView_pvPasswordPlaceholder);
@@ -71,7 +79,8 @@ public class FPasswordView extends FrameLayout
         mItemTextColor = itemTextColor;
         mItemTextSize = itemTextSize;
         mItemMargin = itemMargin;
-        mItemBackgroundResource = itemBackgroundResource;
+        mItemDivider = itemDivider;
+        mItemBackground = itemBackground;
         mPasswordPlaceholder = passwordPlaceholder;
 
         setItemCount(itemCount);
@@ -106,13 +115,19 @@ public class FPasswordView extends FrameLayout
             mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(count)});
 
             mLinearLayout.removeAllViews();
+            mLinearLayout.setDividerDrawable(mItemDivider);
+
             for (int i = 0; i < count; i++)
             {
                 final TextView textView = new TextView(getContext());
                 textView.setGravity(Gravity.CENTER);
                 textView.setTextColor(mItemTextColor);
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mItemTextSize);
-                textView.setBackgroundResource(mItemBackgroundResource);
+
+                if (Build.VERSION.SDK_INT >= 16)
+                    textView.setBackground(mItemBackground);
+                else
+                    textView.setBackgroundDrawable(mItemBackground);
 
                 final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
                 if (i > 0)

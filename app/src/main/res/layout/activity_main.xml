@@ -10,12 +10,12 @@
         android:id="@+id/view_password_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_color_primary"
-        android:padding="1dp"
-        app:pvItemBackground="@drawable/bg_item_white"
+        android:background="@drawable/bg_white_stroke_black_corner"
+        app:pvItemBackground="@android:color/transparent"
         app:pvItemCount="6"
-        app:pvItemMargin="1dp"
-        app:pvItemTextColor="@color/colorPrimary"
+        app:pvItemDivider="@null"
+        app:pvItemMargin="0dp"
+        app:pvItemTextColor="#000000"
         app:pvItemTextSize="15sp"
         app:pvPasswordPlaceholder="" />
 
