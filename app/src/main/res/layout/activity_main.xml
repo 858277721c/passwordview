@@ -11,20 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_white_stroke_black_corner"
-        app:pvItemBackground="@android:color/transparent"
         app:pvItemCount="6"
-        app:pvItemDivider="@null"
-        app:pvItemMargin="0dp"
-        app:pvItemTextColor="#000000"
-        app:pvItemTextSize="15sp"
-        app:pvPasswordPlaceholder="" />
+        app:pvItemDivider="@drawable/bg_divider_black" />
 
     <com.sd.lib.passwordview.FPasswordView
         android:id="@+id/view_password_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        app:pvPasswordPlaceholder="*" />
+        app:pvPasswordPlaceholder="" />
 
     <com.sd.lib.passwordview.FPasswordView
         android:id="@+id/view_password_3"

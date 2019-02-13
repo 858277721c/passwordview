@@ -50,7 +50,7 @@ public class FPasswordView extends FrameLayout
         int itemCount = getResources().getInteger(R.integer.lib_passwordview_item_count);
         int itemTextColor = getResources().getColor(R.color.lib_passwordview_text_item);
         int itemTextSize = getResources().getDimensionPixelSize(R.dimen.lib_passwordview_text_item);
-        int itemMargin = getResources().getDimensionPixelSize(R.dimen.lib_passwordview_margin_item);
+        int itemMargin = 0;
         Drawable itemDivider = null;
         Drawable itemBackground = null;
         String passwordPlaceholder = getResources().getString(R.string.lib_passwordview_password_placeholder);
