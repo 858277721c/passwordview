@@ -6,38 +6,30 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <FrameLayout
+    <com.sd.lib.passwordview.FPasswordView
+        android:id="@+id/view_password_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
-
-        <com.sd.lib.passwordview.FPasswordView
-            android:id="@+id/view_password_1"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="1dp"
-            android:textSize="30sp"
-            app:pvItemBackground="@drawable/bg_item_white"
-            app:pvItemMargin="1dp"
-            app:pvItemCount="6"
-            app:pvPasswordPlaceholder="" />
-
-    </FrameLayout>
+        android:background="@drawable/bg_color_primary"
+        android:padding="1dp"
+        app:pvItemBackground="@drawable/bg_item_white"
+        app:pvItemCount="6"
+        app:pvItemMargin="1dp"
+        app:pvItemTextColor="@color/colorPrimary"
+        app:pvItemTextSize="15sp"
+        app:pvPasswordPlaceholder="" />
 
     <com.sd.lib.passwordview.FPasswordView
         android:id="@+id/view_password_2"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textSize="30sp"
-        app:pvItemCount="5"
         app:pvPasswordPlaceholder="*" />
 
     <com.sd.lib.passwordview.FPasswordView
         android:id="@+id/view_password_3"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:textSize="30sp" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>
