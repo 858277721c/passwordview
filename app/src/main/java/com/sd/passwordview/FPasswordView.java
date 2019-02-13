@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.text.InputFilter;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -27,7 +28,8 @@ public class FPasswordView extends EditText
     private void init(AttributeSet attrs)
     {
         setBackgroundColor(0);
-        setPadding(0, 0, 0, 0);
+        super.setPadding(0, 0, 0, 0);
+        super.setGravity(Gravity.CENTER);
 
         mItemCount = 4;
         mItemMargin = (int) (getResources().getDisplayMetrics().density * 10);
@@ -38,7 +40,11 @@ public class FPasswordView extends EditText
     @Override
     public void setPadding(int left, int top, int right, int bottom)
     {
-        super.setPadding(0, 0, 0, 0);
+    }
+
+    @Override
+    public void setGravity(int gravity)
+    {
     }
 
     @Override
@@ -146,9 +152,7 @@ public class FPasswordView extends EditText
                 final float textItemWidth = getPaint().measureText(textItem);
 
                 final float textX = left + ((itemWidth - textItemWidth) / 2);
-
-                final float textY = getHeight() / 2 + (Math.abs(getPaint().getFontMetrics().ascent)) / 2;
-                canvas.drawText(String.valueOf(textItem), textX, textY, getPaint());
+                canvas.drawText(String.valueOf(textItem), textX, getBaseline(), getPaint());
             }
 
             left = right;
