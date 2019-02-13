@@ -200,9 +200,9 @@ public class FPasswordView extends EditText
             {
                 final String textItem = TextUtils.isEmpty(mPasswordPlaceholder) ? String.valueOf(text.charAt(i)) : mPasswordPlaceholder;
                 final float textItemWidth = getPaint().measureText(textItem);
-
                 final float textX = left + ((itemWidth - textItemWidth) / 2);
-                canvas.drawText(String.valueOf(textItem), textX, getBaseline(), getPaint());
+
+                canvas.drawText(textItem, textX, getBaseline(), getPaint());
             }
 
             left = right;
