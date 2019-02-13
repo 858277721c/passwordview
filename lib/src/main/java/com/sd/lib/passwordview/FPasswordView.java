@@ -3,21 +3,26 @@ package com.sd.lib.passwordview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
 import android.text.InputFilter;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-public class FPasswordView extends EditText
+public class FPasswordView extends FrameLayout
 {
+    private final EditText mEditText;
+    private final LinearLayout mLinearLayout;
+
     private int mItemCount;
     private int mItemMargin;
     private int mItemBackgroundResource;
-    private Drawable mItemBackgroundDrawable;
 
     private String mPasswordPlaceholder;
 
@@ -26,14 +31,14 @@ public class FPasswordView extends EditText
     public FPasswordView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
-        init(attrs);
-    }
 
-    private void init(AttributeSet attrs)
-    {
-        setBackgroundColor(0);
-        super.setPadding(0, 0, 0, 0);
-        super.setGravity(Gravity.CENTER);
+        mLinearLayout = new LinearLayout(context);
+        mLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        mLinearLayout.setGravity(Gravity.CENTER);
+        addView(mLinearLayout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        mEditText = new InternalEditText(context);
+        addView(mEditText, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         int itemCount = 4;
         int itemMargin = (int) (getResources().getDisplayMetrics().density * 10);
@@ -70,29 +75,6 @@ public class FPasswordView extends EditText
         mCallback = callback;
     }
 
-    @Override
-    public void setPadding(int left, int top, int right, int bottom)
-    {
-    }
-
-    @Override
-    public void setGravity(int gravity)
-    {
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
-        if (event.getAction() == MotionEvent.ACTION_DOWN)
-        {
-            final InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            setFocusable(true);
-            requestFocus();
-            manager.showSoftInput(this, InputMethodManager.SHOW_FORCED);
-        }
-        return false;
-    }
-
     /**
      * 设置密码长度
      *
@@ -105,12 +87,20 @@ public class FPasswordView extends EditText
 
         if (mItemCount != count)
         {
-            if (!getText().toString().isEmpty())
+            if (!mEditText.getText().toString().isEmpty())
                 throw new RuntimeException("Count can not be change when text is not empty");
 
             mItemCount = count;
-            setFilters(new InputFilter[]{new InputFilter.LengthFilter(count)});
-            invalidate();
+            mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(count)});
+
+            mLinearLayout.removeAllViews();
+            for (int i = 0; i < count; i++)
+            {
+                final TextView textView = new TextView(getContext());
+                textView.setGravity(Gravity.CENTER);
+                final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+                mLinearLayout.addView(textView, params);
+            }
         }
     }
 
@@ -127,7 +117,15 @@ public class FPasswordView extends EditText
         if (mItemMargin != margin)
         {
             mItemMargin = margin;
-            invalidate();
+
+            final int count = mLinearLayout.getChildCount();
+            for (int i = 1; i < count; i++)
+            {
+                final View child = mLinearLayout.getChildAt(i);
+                final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) child.getLayoutParams();
+                params.leftMargin = margin;
+                child.setLayoutParams(params);
+            }
         }
     }
 
@@ -142,15 +140,12 @@ public class FPasswordView extends EditText
         {
             mItemBackgroundResource = resId;
 
-            try
+            final int count = mLinearLayout.getChildCount();
+            for (int i = 0; i < count; i++)
             {
-                mItemBackgroundDrawable = getResources().getDrawable(resId);
-            } catch (Exception e)
-            {
-                mItemBackgroundDrawable = null;
+                final View child = mLinearLayout.getChildAt(i);
+                child.setBackgroundResource(resId);
             }
-
-            invalidate();
         }
     }
 
@@ -171,59 +166,52 @@ public class FPasswordView extends EditText
         }
     }
 
-    @Override
-    protected void onDraw(Canvas canvas)
+    private final class InternalEditText extends EditText
     {
-        if (getWidth() <= 0 || getHeight() <= 0)
-            return;
-
-        final int itemWidth = (getWidth() - (mItemCount - 1) * mItemMargin) / mItemCount;
-        if (itemWidth <= 0)
-            return;
-
-        int left = 0;
-        int top = 0;
-        int right = 0;
-        int bottom = getHeight();
-
-        final String text = getText().toString();
-        for (int i = 0; i < mItemCount; i++)
+        public InternalEditText(Context context)
         {
-            if (i > 0)
-                left += mItemMargin;
+            super(context);
+            setBackgroundColor(0);
+            setPadding(0, 0, 0, 0);
+            setGravity(Gravity.CENTER);
+        }
 
-            right = left + itemWidth;
-
-            onDrawItemBackground(canvas, left, top, right, bottom);
-
-            if (i < text.length())
+        @Override
+        public boolean onTouchEvent(MotionEvent event)
+        {
+            if (event.getAction() == MotionEvent.ACTION_DOWN)
             {
-                final String textItem = TextUtils.isEmpty(mPasswordPlaceholder) ? String.valueOf(text.charAt(i)) : mPasswordPlaceholder;
-                final float textItemWidth = getPaint().measureText(textItem);
-                final float textX = left + ((itemWidth - textItemWidth) / 2);
+                final InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                setFocusable(true);
+                requestFocus();
+                manager.showSoftInput(this, InputMethodManager.SHOW_FORCED);
+            }
+            return false;
+        }
 
-                canvas.drawText(textItem, textX, getBaseline(), getPaint());
+        @Override
+        protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter)
+        {
+            super.onTextChanged(text, start, lengthBefore, lengthAfter);
+
+            final String content = text.toString();
+
+            final int count = mLinearLayout.getChildCount();
+            for (int i = 0; i < count; i++)
+            {
+                final String itemText = i < content.length() ? String.valueOf(content.charAt(i)) : "";
+                final TextView child = (TextView) mLinearLayout.getChildAt(i);
+                child.setText(itemText);
             }
 
-            left = right;
+            if (mCallback != null)
+                mCallback.onTextChanged(text.toString());
         }
-    }
 
-    protected void onDrawItemBackground(Canvas canvas, int left, int top, int right, int bottom)
-    {
-        if (mItemBackgroundDrawable != null)
+        @Override
+        protected void onDraw(Canvas canvas)
         {
-            mItemBackgroundDrawable.setBounds(left, top, right, bottom);
-            mItemBackgroundDrawable.draw(canvas);
         }
-    }
-
-    @Override
-    protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter)
-    {
-        super.onTextChanged(text, start, lengthBefore, lengthAfter);
-        if (mCallback != null)
-            mCallback.onTextChanged(text.toString());
     }
 
     public interface Callback
