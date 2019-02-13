@@ -18,7 +18,8 @@
             android:layout_margin="10dp"
             android:textSize="30sp"
             app:pvItemBackground="@drawable/bg_item_white"
-            app:pvItemMargin="10dp" />
+            app:pvItemMargin="10dp"
+            app:pvPasswordPlaceholder="" />
 
     </FrameLayout>
 

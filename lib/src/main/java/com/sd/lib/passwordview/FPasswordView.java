@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.text.InputFilter;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -17,6 +18,8 @@ public class FPasswordView extends EditText
     private int mItemMargin;
     private int mItemBackgroundResource;
     private Drawable mItemBackgroundDrawable;
+
+    private String mPasswordPlaceholder;
 
     public FPasswordView(Context context, AttributeSet attrs)
     {
@@ -33,6 +36,7 @@ public class FPasswordView extends EditText
         int itemCount = 4;
         int itemMargin = (int) (getResources().getDisplayMetrics().density * 10);
         int itemBackgroundResource = R.drawable.lib_passwordview_bg_item;
+        String passwordPlaceholder = "*";
 
         if (attrs != null)
         {
@@ -42,12 +46,16 @@ public class FPasswordView extends EditText
             itemMargin = a.getDimensionPixelSize(R.styleable.LibPasswordView_pvItemMargin, itemMargin);
             itemBackgroundResource = a.getResourceId(R.styleable.LibPasswordView_pvItemBackground, itemBackgroundResource);
 
+            if (a.hasValue(R.styleable.LibPasswordView_pvPasswordPlaceholder))
+                passwordPlaceholder = a.getString(R.styleable.LibPasswordView_pvPasswordPlaceholder);
+
             a.recycle();
         }
 
         setItemCount(itemCount);
         setItemMargin(itemMargin);
         setItemBackgroundResource(itemBackgroundResource);
+        setPasswordPlaceholder(passwordPlaceholder);
     }
 
     @Override
@@ -134,6 +142,23 @@ public class FPasswordView extends EditText
         }
     }
 
+    /**
+     * 设置密码占位符，如果为null或者空字符串，则显示明文
+     *
+     * @param placeholder
+     */
+    public void setPasswordPlaceholder(String placeholder)
+    {
+        if (placeholder == null)
+            placeholder = "";
+
+        if (!placeholder.equals(mPasswordPlaceholder))
+        {
+            mPasswordPlaceholder = placeholder;
+            invalidate();
+        }
+    }
+
     @Override
     protected void onDraw(Canvas canvas)
     {
@@ -161,7 +186,7 @@ public class FPasswordView extends EditText
 
             if (i < text.length())
             {
-                final String textItem = String.valueOf(text.charAt(i));
+                final String textItem = TextUtils.isEmpty(mPasswordPlaceholder) ? String.valueOf(text.charAt(i)) : mPasswordPlaceholder;
                 final float textItemWidth = getPaint().measureText(textItem);
 
                 final float textX = left + ((itemWidth - textItemWidth) / 2);
