@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
 
-        <com.sd.passwordview.FPasswordView
+        <com.sd.lib.passwordview.FPasswordView
             android:id="@+id/view_password_1"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -19,7 +19,7 @@
 
     </FrameLayout>
 
-    <com.sd.passwordview.FPasswordView
+    <com.sd.lib.passwordview.FPasswordView
         android:id="@+id/view_password_2"
         android:layout_width="match_parent"
         android:layout_height="50dp"

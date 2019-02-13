@@ -1,4 +1,4 @@
-package com.sd.passwordview;
+package com.sd.lib.passwordview;
 
 import android.content.Context;
 import android.graphics.Canvas;

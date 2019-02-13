@@ -3,6 +3,8 @@ package com.sd.passwordview;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.sd.lib.passwordview.FPasswordView;
+
 public class MainActivity extends AppCompatActivity
 {
     private FPasswordView view_password_1, view_password_2;
