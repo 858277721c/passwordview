@@ -21,6 +21,8 @@ public class FPasswordView extends EditText
 
     private String mPasswordPlaceholder;
 
+    private Callback mCallback;
+
     public FPasswordView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
@@ -56,6 +58,16 @@ public class FPasswordView extends EditText
         setItemMargin(itemMargin);
         setItemBackgroundResource(itemBackgroundResource);
         setPasswordPlaceholder(passwordPlaceholder);
+    }
+
+    /**
+     * 设置回调
+     *
+     * @param callback
+     */
+    public void setCallback(Callback callback)
+    {
+        mCallback = callback;
     }
 
     @Override
@@ -204,5 +216,18 @@ public class FPasswordView extends EditText
             mItemBackgroundDrawable.setBounds(left, top, right, bottom);
             mItemBackgroundDrawable.draw(canvas);
         }
+    }
+
+    @Override
+    protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter)
+    {
+        super.onTextChanged(text, start, lengthBefore, lengthAfter);
+        if (mCallback != null)
+            mCallback.onTextChanged(text.toString());
+    }
+
+    public interface Callback
+    {
+        void onTextChanged(String text);
     }
 }
