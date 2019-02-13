@@ -3,12 +3,12 @@ package com.sd.lib.passwordview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -22,6 +22,9 @@ public class FPasswordView extends FrameLayout
     private final LinearLayout mLinearLayout;
 
     private int mItemCount;
+
+    private int mItemTextColor;
+    private int mItemTextSize;
     private int mItemMargin;
     private int mItemBackgroundResource;
 
@@ -42,6 +45,8 @@ public class FPasswordView extends FrameLayout
         addView(mEditText, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         int itemCount = 4;
+        int itemTextColor = Color.BLACK;
+        int itemTextSize = (int) (getResources().getDisplayMetrics().scaledDensity * 13);
         int itemMargin = (int) (getResources().getDisplayMetrics().density * 10);
         int itemBackgroundResource = R.drawable.lib_passwordview_bg_item;
         String passwordPlaceholder = "●";
@@ -51,6 +56,8 @@ public class FPasswordView extends FrameLayout
             final TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.LibPasswordView);
 
             itemCount = a.getInteger(R.styleable.LibPasswordView_pvItemCount, itemCount);
+            itemTextColor = a.getColor(R.styleable.LibPasswordView_pvItemTextColor, itemTextColor);
+            itemTextSize = a.getDimensionPixelSize(R.styleable.LibPasswordView_pvItemTextSize, itemTextSize);
             itemMargin = a.getDimensionPixelSize(R.styleable.LibPasswordView_pvItemMargin, itemMargin);
             itemBackgroundResource = a.getResourceId(R.styleable.LibPasswordView_pvItemBackground, itemBackgroundResource);
 
@@ -60,10 +67,13 @@ public class FPasswordView extends FrameLayout
             a.recycle();
         }
 
+        mItemTextColor = itemTextColor;
+        mItemTextSize = itemTextSize;
+        mItemMargin = itemMargin;
+        mItemBackgroundResource = itemBackgroundResource;
+        mPasswordPlaceholder = passwordPlaceholder;
+
         setItemCount(itemCount);
-        setItemMargin(itemMargin);
-        setItemBackgroundResource(itemBackgroundResource);
-        setPasswordPlaceholder(passwordPlaceholder);
     }
 
     /**
@@ -99,71 +109,32 @@ public class FPasswordView extends FrameLayout
             {
                 final TextView textView = new TextView(getContext());
                 textView.setGravity(Gravity.CENTER);
+                textView.setTextColor(mItemTextColor);
+                textView.setTextSize(mItemTextSize);
+                textView.setBackgroundResource(mItemBackgroundResource);
+
                 final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+                if (i > 0)
+                    params.leftMargin = mItemMargin;
+
                 mLinearLayout.addView(textView, params);
             }
+
+            bindText(mEditText.getText().toString());
         }
     }
 
-    /**
-     * 设置密码item之间的间距
-     *
-     * @param margin
-     */
-    public void setItemMargin(int margin)
+    private void bindText(String content)
     {
-        if (margin <= 0)
-            throw new IllegalArgumentException();
-
-        if (mItemMargin != margin)
+        final int count = mLinearLayout.getChildCount();
+        for (int i = 0; i < count; i++)
         {
-            mItemMargin = margin;
+            String itemText = "";
+            if (i < content.length())
+                itemText = TextUtils.isEmpty(mPasswordPlaceholder) ? String.valueOf(content.charAt(i)) : mPasswordPlaceholder;
 
-            final int count = mLinearLayout.getChildCount();
-            for (int i = 1; i < count; i++)
-            {
-                final View child = mLinearLayout.getChildAt(i);
-                final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) child.getLayoutParams();
-                params.leftMargin = margin;
-                child.setLayoutParams(params);
-            }
-        }
-    }
-
-    /**
-     * 设置item背景
-     *
-     * @param resId
-     */
-    public void setItemBackgroundResource(int resId)
-    {
-        if (mItemBackgroundResource != resId)
-        {
-            mItemBackgroundResource = resId;
-
-            final int count = mLinearLayout.getChildCount();
-            for (int i = 0; i < count; i++)
-            {
-                final View child = mLinearLayout.getChildAt(i);
-                child.setBackgroundResource(resId);
-            }
-        }
-    }
-
-    /**
-     * 设置密码占位符，如果为null或者空字符串，则显示明文
-     *
-     * @param placeholder
-     */
-    public void setPasswordPlaceholder(String placeholder)
-    {
-        if (placeholder == null)
-            placeholder = "";
-
-        if (!placeholder.equals(mPasswordPlaceholder))
-        {
-            mPasswordPlaceholder = placeholder;
-            invalidate();
+            final TextView child = (TextView) mLinearLayout.getChildAt(i);
+            child.setText(itemText);
         }
     }
 
@@ -194,20 +165,7 @@ public class FPasswordView extends FrameLayout
         protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter)
         {
             super.onTextChanged(text, start, lengthBefore, lengthAfter);
-
-            final String content = text.toString();
-
-            final int count = mLinearLayout.getChildCount();
-            for (int i = 0; i < count; i++)
-            {
-                String itemText = "";
-                if (i < content.length())
-                    itemText = TextUtils.isEmpty(mPasswordPlaceholder) ? String.valueOf(content.charAt(i)) : mPasswordPlaceholder;
-
-                final TextView child = (TextView) mLinearLayout.getChildAt(i);
-                child.setText(itemText);
-            }
-
+            bindText(text.toString());
             if (mCallback != null)
                 mCallback.onTextChanged(text.toString());
         }
