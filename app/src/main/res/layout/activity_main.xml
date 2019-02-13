@@ -5,8 +5,9 @@
     android:orientation="vertical">
 
     <com.sd.passwordview.FPasswordView
+        android:id="@+id/view_password"
         android:layout_width="match_parent"
-        android:textSize="30sp"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:textSize="30sp" />
 
 </LinearLayout>

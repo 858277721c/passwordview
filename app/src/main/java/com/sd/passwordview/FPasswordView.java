@@ -1,9 +1,10 @@
 package com.sd.passwordview;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+import android.graphics.Rect;
 import android.text.InputFilter;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -14,11 +15,8 @@ public class FPasswordView extends EditText
 {
     private int mItemCount;
     private int mItemMargin;
-
-    private int mItemStrokeColor;
-    private int mItemStrokeWidth;
-
-    private final Paint mPaintStroke = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private int mItemBackgroundResource;
+    private Bitmap mItemBackground;
 
     public FPasswordView(Context context, AttributeSet attrs)
     {
@@ -33,9 +31,6 @@ public class FPasswordView extends EditText
 
         mItemCount = 4;
         mItemMargin = (int) (getResources().getDisplayMetrics().density * 10);
-
-        mItemStrokeColor = Color.parseColor("#dddddd");
-        mItemStrokeWidth = (int) (getResources().getDisplayMetrics().density * 2);
 
         setFilters(new InputFilter[]{new InputFilter.LengthFilter(mItemCount)});
     }
@@ -90,7 +85,6 @@ public class FPasswordView extends EditText
         if (margin <= 0)
             throw new IllegalArgumentException();
 
-        mItemMargin = margin;
         if (mItemMargin != margin)
         {
             mItemMargin = margin;
@@ -99,27 +93,24 @@ public class FPasswordView extends EditText
     }
 
     /**
-     * 设置item边框大小
+     * 设置item背景
      *
-     * @param width
+     * @param resId
      */
-    public void setItemStrokeWidth(int width)
+    public void setItemBackgroundResource(int resId)
     {
-        if (width < 0)
-            width = 0;
-
-        if (mItemStrokeWidth != width)
+        if (mItemBackgroundResource != resId)
         {
-            mItemStrokeWidth = width;
-            invalidate();
-        }
-    }
+            mItemBackgroundResource = resId;
 
-    public void setItemStrokeColor(int color)
-    {
-        if (mItemStrokeColor != color)
-        {
-            mItemStrokeColor = color;
+            try
+            {
+                mItemBackground = BitmapFactory.decodeResource(getResources(), resId);
+            } catch (Exception e)
+            {
+                mItemBackground = null;
+            }
+
             invalidate();
         }
     }
@@ -134,32 +125,36 @@ public class FPasswordView extends EditText
         if (itemWidth <= 0)
             return;
 
-        mPaintStroke.setColor(mItemStrokeColor);
-        mPaintStroke.setStrokeWidth(mItemStrokeWidth);
-
-        int startX = 0;
-        final int bottomY = getHeight();
+        int left = 0;
+        int top = 0;
+        int right = 0;
+        int bottom = getHeight();
 
         final String text = getText().toString();
         for (int i = 0; i < mItemCount; i++)
         {
             if (i > 0)
-                startX += mItemMargin;
+                left += mItemMargin;
 
-            final int endX = startX + itemWidth;
-            canvas.drawLine(startX, bottomY, endX, bottomY, mPaintStroke);
+            right = left + itemWidth;
+
+            if (mItemBackground != null)
+            {
+                canvas.drawBitmap(mItemBackground, null, new Rect(left, top, right, bottom), getPaint());
+            }
 
             if (i < text.length())
             {
                 final String textItem = String.valueOf(text.charAt(i));
                 final float textItemWidth = getPaint().measureText(textItem);
 
-                final float textX = startX + ((itemWidth - textItemWidth) / 2);
-                final float textY = getHeight() - mItemStrokeWidth - getPaint().getFontMetrics().descent;
+                final float textX = left + ((itemWidth - textItemWidth) / 2);
+
+                final float textY = getHeight() / 2 + (Math.abs(getPaint().getFontMetrics().ascent)) / 2;
                 canvas.drawText(String.valueOf(textItem), textX, textY, getPaint());
             }
 
-            startX = endX;
+            left = right;
         }
     }
 }
