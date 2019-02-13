@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.text.InputFilter;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -199,7 +200,10 @@ public class FPasswordView extends FrameLayout
             final int count = mLinearLayout.getChildCount();
             for (int i = 0; i < count; i++)
             {
-                final String itemText = i < content.length() ? String.valueOf(content.charAt(i)) : "";
+                String itemText = "";
+                if (i < content.length())
+                    itemText = TextUtils.isEmpty(mPasswordPlaceholder) ? String.valueOf(content.charAt(i)) : mPasswordPlaceholder;
+
                 final TextView child = (TextView) mLinearLayout.getChildAt(i);
                 child.setText(itemText);
             }
