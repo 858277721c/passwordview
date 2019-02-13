@@ -15,10 +15,11 @@
             android:id="@+id/view_password_1"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_margin="10dp"
+            android:layout_margin="1dp"
             android:textSize="30sp"
             app:pvItemBackground="@drawable/bg_item_white"
-            app:pvItemMargin="10dp"
+            app:pvItemMargin="1dp"
+            app:pvItemCount="6"
             app:pvPasswordPlaceholder="" />
 
     </FrameLayout>
