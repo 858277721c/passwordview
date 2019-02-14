@@ -3,28 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:orientation="vertical">
 
     <com.sd.lib.passwordview.FPasswordView
         android:id="@+id/view_password_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:background="@drawable/bg_white_stroke_black_corner"
         app:pvItemCount="6"
-        app:pvItemDivider="@drawable/bg_divider_black" />
+        app:pvItemDivider="@drawable/divider_black_1dp" />
 
     <com.sd.lib.passwordview.FPasswordView
         android:id="@+id/view_password_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:pvPasswordPlaceholder="" />
+        android:layout_margin="10dp"
+        app:pvItemBackground="@drawable/bg_white_stroke_black_corner"
+        app:pvItemDivider="@drawable/divider_transparent_10dp"
+        app:pvItemMargin="0dp" />
 
     <com.sd.lib.passwordview.FPasswordView
         android:id="@+id/view_password_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
+        android:layout_margin="10dp"
+        app:pvItemBackground="@drawable/bg_item_underline"
+        app:pvItemMargin="10dp"
+        app:pvPasswordPlaceholder="" />
 
 </LinearLayout>
