@@ -125,11 +125,10 @@ public class FPasswordView extends FrameLayout
 
         if (mItemCount != count)
         {
-            if (!mEditText.getText().toString().isEmpty())
-                throw new RuntimeException("Count can not be change when text is not empty");
-
             mItemCount = count;
+
             mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(count)});
+            mEditText.setText("");
 
             mLinearLayout.removeAllViews();
             mLinearLayout.setDividerDrawable(mItemDivider);
