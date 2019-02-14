@@ -20,8 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:pvItemBackground="@drawable/bg_white_stroke_black_corner"
-        app:pvItemDivider="@drawable/divider_transparent_10dp"
-        app:pvItemMargin="0dp" />
+        app:pvItemMargin="10dp" />
 
     <com.sd.lib.passwordview.FPasswordView
         android:id="@+id/view_password_3"
