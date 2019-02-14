@@ -2,8 +2,8 @@ package com.sd.passwordview;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import com.sd.lib.passwordview.FPasswordView;
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity
         /**
          * 设置只允许输入数字
          */
-        mPasswordView.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
+        mPasswordView.setInputType(InputType.TYPE_CLASS_NUMBER);
         /**
          * 设置输入内容变化回调
          */

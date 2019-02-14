@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -119,7 +120,7 @@ public class FPasswordView extends FrameLayout
     /**
      * 设置输入类型{@link EditText#setInputType(int)}
      *
-     * @param type
+     * @param type {@link InputType}
      */
     public void setInputType(int type)
     {
