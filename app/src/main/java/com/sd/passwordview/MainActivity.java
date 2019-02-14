@@ -10,7 +10,7 @@ public class MainActivity extends AppCompatActivity
 {
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    private FPasswordView view_password_1, view_password_2;
+    private FPasswordView view_password_1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         view_password_1 = findViewById(R.id.view_password_1);
-        view_password_2 = findViewById(R.id.view_password_2);
 
         view_password_1.setCallback(new FPasswordView.Callback()
         {
