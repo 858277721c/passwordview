@@ -16,16 +16,17 @@
 
     <com.sd.lib.passwordview.FPasswordView
         android:id="@+id/view_password_2"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:pvItemBackground="@drawable/bg_white_stroke_black_corner"
-        app:pvItemMargin="10dp" />
+        app:pvItemMargin="10dp"
+        app:pvItemSquare="true" />
 
     <com.sd.lib.passwordview.FPasswordView
         android:id="@+id/view_password_3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
         android:layout_margin="10dp"
         app:pvItemBackground="@drawable/bg_item_underline"
         app:pvItemMargin="10dp"

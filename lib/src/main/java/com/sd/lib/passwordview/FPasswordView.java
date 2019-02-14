@@ -29,6 +29,7 @@ public class FPasswordView extends FrameLayout
     private int mItemMargin;
     private Drawable mItemDivider;
     private int mItemBackground;
+    private boolean mItemSquare;
 
     private String mPasswordPlaceholder;
 
@@ -52,6 +53,7 @@ public class FPasswordView extends FrameLayout
         int itemMargin = 0;
         Drawable itemDivider = null;
         int itemBackground = 0;
+        boolean itemSquare = false;
         String passwordPlaceholder = getResources().getString(R.string.lib_passwordview_password_placeholder);
 
         if (attrs != null)
@@ -62,6 +64,7 @@ public class FPasswordView extends FrameLayout
             itemTextColor = a.getColor(R.styleable.LibPasswordView_pvItemTextColor, itemTextColor);
             itemTextSize = a.getDimensionPixelSize(R.styleable.LibPasswordView_pvItemTextSize, itemTextSize);
             itemMargin = a.getDimensionPixelSize(R.styleable.LibPasswordView_pvItemMargin, itemMargin);
+            itemSquare = a.getBoolean(R.styleable.LibPasswordView_pvItemSquare, itemSquare);
 
             if (a.hasValue(R.styleable.LibPasswordView_pvItemBackground))
                 itemBackground = a.getResourceId(R.styleable.LibPasswordView_pvItemBackground, 0);
@@ -80,6 +83,7 @@ public class FPasswordView extends FrameLayout
         mItemMargin = itemMargin;
         mItemDivider = itemDivider;
         mItemBackground = itemBackground;
+        mItemSquare = itemSquare;
         mPasswordPlaceholder = passwordPlaceholder;
 
         setItemCount(itemCount);
@@ -158,6 +162,15 @@ public class FPasswordView extends FrameLayout
         public InternalTextView(Context context)
         {
             super(context);
+        }
+
+        @Override
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+        {
+            if (mItemSquare)
+                heightMeasureSpec = widthMeasureSpec;
+
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
 
