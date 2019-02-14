@@ -156,6 +156,8 @@ public class FPasswordView extends FrameLayout
 
     private void bindText(String content)
     {
+        boolean selected = false;
+
         final int count = mLinearLayout.getChildCount();
         for (int i = 0; i < count; i++)
         {
@@ -165,6 +167,15 @@ public class FPasswordView extends FrameLayout
 
             final TextView child = (TextView) mLinearLayout.getChildAt(i);
             child.setText(itemText);
+
+            if (itemText.isEmpty() && !selected)
+            {
+                child.setSelected(true);
+                selected = true;
+            } else
+            {
+                child.setSelected(false);
+            }
         }
     }
 
@@ -182,6 +193,13 @@ public class FPasswordView extends FrameLayout
                 heightMeasureSpec = widthMeasureSpec;
 
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        }
+
+        @Override
+        public void setSelected(boolean selected)
+        {
+            if (isSelected() != selected)
+                super.setSelected(selected);
         }
     }
 
