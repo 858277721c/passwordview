@@ -63,3 +63,22 @@
 
 </declare-styleable>
 ```
+
+# 支持覆盖的默认配置
+```xml
+<resources>
+
+    <!-- 默认item个数 -->
+    <integer name="lib_passwordview_item_count">4</integer>
+
+    <!-- 默认密码占位符 -->
+    <string name="lib_passwordview_password_placeholder">●</string>
+
+    <!-- 默认item文字颜色 -->
+    <color name="lib_passwordview_text_item">#000000</color>
+
+    <!-- 默认item文字大小 -->
+    <dimen name="lib_passwordview_text_item">15sp</dimen>
+
+</resources>
+```
