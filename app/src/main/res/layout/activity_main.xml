@@ -22,7 +22,7 @@
     <com.sd.lib.passwordview.FPasswordView
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        app:pvItemBackground="@drawable/bg_white_stroke_black_corner"
+        app:pvItemBackground="@drawable/sel_white_stroke_black_red_corner"
         app:pvItemMargin="10dp"
         app:pvItemSquare="true" />
 
