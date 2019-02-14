@@ -117,11 +117,21 @@ public class FPasswordView extends FrameLayout
     }
 
     /**
+     * 设置输入类型{@link EditText#setInputType(int)}
+     *
+     * @param type
+     */
+    public void setInputType(int type)
+    {
+        mEditText.setInputType(type);
+    }
+
+    /**
      * 设置密码长度
      *
      * @param count
      */
-    public void setItemCount(int count)
+    private void setItemCount(int count)
     {
         if (count <= 0)
             throw new IllegalArgumentException();
