@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -29,7 +28,7 @@ public class FPasswordView extends FrameLayout
     private int mItemTextSize;
     private int mItemMargin;
     private Drawable mItemDivider;
-    private Drawable mItemBackground;
+    private int mItemBackground;
 
     private String mPasswordPlaceholder;
 
@@ -52,7 +51,7 @@ public class FPasswordView extends FrameLayout
         int itemTextSize = getResources().getDimensionPixelSize(R.dimen.lib_passwordview_text_item);
         int itemMargin = 0;
         Drawable itemDivider = null;
-        Drawable itemBackground = null;
+        int itemBackground = 0;
         String passwordPlaceholder = getResources().getString(R.string.lib_passwordview_password_placeholder);
 
         if (attrs != null)
@@ -65,7 +64,7 @@ public class FPasswordView extends FrameLayout
             itemMargin = a.getDimensionPixelSize(R.styleable.LibPasswordView_pvItemMargin, itemMargin);
 
             if (a.hasValue(R.styleable.LibPasswordView_pvItemBackground))
-                itemBackground = a.getDrawable(R.styleable.LibPasswordView_pvItemBackground);
+                itemBackground = a.getResourceId(R.styleable.LibPasswordView_pvItemBackground, 0);
 
             if (a.hasValue(R.styleable.LibPasswordView_pvItemDivider))
                 itemDivider = a.getDrawable(R.styleable.LibPasswordView_pvItemDivider);
@@ -124,10 +123,10 @@ public class FPasswordView extends FrameLayout
                 textView.setTextColor(mItemTextColor);
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mItemTextSize);
 
-                if (Build.VERSION.SDK_INT >= 16)
-                    textView.setBackground(mItemBackground);
+                if (mItemBackground == 0)
+                    textView.setBackgroundColor(0);
                 else
-                    textView.setBackgroundDrawable(mItemBackground);
+                    textView.setBackgroundResource(mItemBackground);
 
                 final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
                 if (i > 0)
