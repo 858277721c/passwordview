@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_white_stroke_black_corner"
-        app:pvItemCount="6"
         app:pvItemDivider="@drawable/divider_black_1dp" />
 
     <Space
@@ -23,6 +22,7 @@
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         app:pvItemBackground="@drawable/bg_white_stroke_black_corner"
+        app:pvItemCount="4"
         app:pvItemMargin="10dp"
         app:pvItemSquare="true" />
 
@@ -35,8 +35,8 @@
         android:layout_height="35dp"
         app:pvItemBackground="@drawable/bg_underline_gray"
         app:pvItemBackgroundFill="@drawable/bg_underline_black"
-        app:pvItemMargin="10dp"
-        app:pvItemWidth="50dp"
+        app:pvItemMargin="5dp"
+        app:pvItemWidth="40dp"
         app:pvPasswordPlaceholder="" />
 
 </LinearLayout>
