@@ -30,6 +30,7 @@ public class FPasswordView extends FrameLayout
     private int mItemWidth;
     private Drawable mItemDivider;
     private int mItemBackground;
+    private int mItemBackgroundFill;
     private boolean mItemSquare;
 
     private String mPasswordPlaceholder;
@@ -55,6 +56,7 @@ public class FPasswordView extends FrameLayout
         int itemWidth = 0;
         Drawable itemDivider = null;
         int itemBackground = 0;
+        int itemBackgroundFill = 0;
         boolean itemSquare = false;
         String passwordPlaceholder = getResources().getString(R.string.lib_passwordview_password_placeholder);
 
@@ -69,8 +71,8 @@ public class FPasswordView extends FrameLayout
             itemWidth = a.getDimensionPixelSize(R.styleable.LibPasswordView_pvItemWidth, itemWidth);
             itemSquare = a.getBoolean(R.styleable.LibPasswordView_pvItemSquare, itemSquare);
 
-            if (a.hasValue(R.styleable.LibPasswordView_pvItemBackground))
-                itemBackground = a.getResourceId(R.styleable.LibPasswordView_pvItemBackground, 0);
+            itemBackground = a.getResourceId(R.styleable.LibPasswordView_pvItemBackground, 0);
+            itemBackgroundFill = a.getResourceId(R.styleable.LibPasswordView_pvItemBackgroundFill, 0);
 
             if (a.hasValue(R.styleable.LibPasswordView_pvItemDivider))
                 itemDivider = a.getDrawable(R.styleable.LibPasswordView_pvItemDivider);
@@ -87,6 +89,7 @@ public class FPasswordView extends FrameLayout
         mItemWidth = itemWidth;
         mItemDivider = itemDivider;
         mItemBackground = itemBackground;
+        mItemBackgroundFill = itemBackgroundFill;
         mItemSquare = itemSquare;
         mPasswordPlaceholder = passwordPlaceholder;
 
@@ -156,8 +159,6 @@ public class FPasswordView extends FrameLayout
 
     private void bindText(String content)
     {
-        boolean selected = false;
-
         final int count = mLinearLayout.getChildCount();
         for (int i = 0; i < count; i++)
         {
@@ -165,17 +166,8 @@ public class FPasswordView extends FrameLayout
             if (i < content.length())
                 itemText = TextUtils.isEmpty(mPasswordPlaceholder) ? String.valueOf(content.charAt(i)) : mPasswordPlaceholder;
 
-            final TextView child = (TextView) mLinearLayout.getChildAt(i);
+            final InternalTextView child = (InternalTextView) mLinearLayout.getChildAt(i);
             child.setText(itemText);
-
-            if (itemText.isEmpty() && !selected)
-            {
-                child.setSelected(true);
-                selected = true;
-            } else
-            {
-                child.setSelected(false);
-            }
         }
     }
 
@@ -200,6 +192,19 @@ public class FPasswordView extends FrameLayout
         {
             if (isSelected() != selected)
                 super.setSelected(selected);
+        }
+
+        @Override
+        public void setText(CharSequence text, BufferType type)
+        {
+            super.setText(text, type);
+
+            int background = getText().toString().isEmpty() ? mItemBackground : mItemBackgroundFill;
+
+            if (background == 0)
+                background = mItemBackground;
+
+            setBackgroundResource(background);
         }
     }
 

@@ -33,7 +33,8 @@
     <com.sd.lib.passwordview.FPasswordView
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        app:pvItemBackground="@drawable/sel_bg_underline"
+        app:pvItemBackground="@drawable/bg_underline_gray"
+        app:pvItemBackgroundFill="@drawable/bg_underline_black"
         app:pvItemMargin="10dp"
         app:pvItemWidth="50dp"
         app:pvPasswordPlaceholder="" />
