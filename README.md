@@ -2,7 +2,7 @@
 [![](https://jitpack.io/v/zj565061763/passwordview.svg)](https://jitpack.io/#zj565061763/passwordview)
 
 # Demo
-![](https://raw.githubusercontent.com/zj565061763/passwordview/master/screenshot/demo.png)
+![](https://raw.githubusercontent.com/zj565061763/passwordview/master/screenshot/passwordview.gif)
 
 ```xml
 <com.sd.lib.passwordview.FPasswordView
