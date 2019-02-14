@@ -4,31 +4,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <com.sd.lib.passwordview.FPasswordView
-        android:id="@+id/view_password_1"
+        android:id="@+id/view_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:background="@drawable/bg_white_stroke_black_corner"
         app:pvItemCount="6"
         app:pvItemDivider="@drawable/divider_black_1dp" />
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
     <com.sd.lib.passwordview.FPasswordView
-        android:id="@+id/view_password_2"
-        android:layout_width="200dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         app:pvItemBackground="@drawable/bg_white_stroke_black_corner"
         app:pvItemMargin="10dp"
         app:pvItemSquare="true" />
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
     <com.sd.lib.passwordview.FPasswordView
-        android:id="@+id/view_password_3"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_margin="10dp"
         app:pvItemBackground="@drawable/bg_underline"
         app:pvItemMargin="10dp"
         app:pvItemWidth="50dp"

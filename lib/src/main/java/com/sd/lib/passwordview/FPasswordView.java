@@ -94,6 +94,16 @@ public class FPasswordView extends FrameLayout
     }
 
     /**
+     * 返回item的数量
+     *
+     * @return
+     */
+    public int getItemCount()
+    {
+        return mItemCount;
+    }
+
+    /**
      * 设置回调
      *
      * @param callback
