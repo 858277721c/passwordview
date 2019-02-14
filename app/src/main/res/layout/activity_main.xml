@@ -25,11 +25,12 @@
 
     <com.sd.lib.passwordview.FPasswordView
         android:id="@+id/view_password_3"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:pvItemBackground="@drawable/bg_item_underline"
         app:pvItemMargin="10dp"
+        app:pvItemWidth="50dp"
         app:pvPasswordPlaceholder="" />
 
 </LinearLayout>

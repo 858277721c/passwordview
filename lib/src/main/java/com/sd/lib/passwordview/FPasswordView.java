@@ -27,6 +27,7 @@ public class FPasswordView extends FrameLayout
     private int mItemTextColor;
     private int mItemTextSize;
     private int mItemMargin;
+    private int mItemWidth;
     private Drawable mItemDivider;
     private int mItemBackground;
     private boolean mItemSquare;
@@ -51,6 +52,7 @@ public class FPasswordView extends FrameLayout
         int itemTextColor = getResources().getColor(R.color.lib_passwordview_text_item);
         int itemTextSize = getResources().getDimensionPixelSize(R.dimen.lib_passwordview_text_item);
         int itemMargin = 0;
+        int itemWidth = 0;
         Drawable itemDivider = null;
         int itemBackground = 0;
         boolean itemSquare = false;
@@ -64,6 +66,7 @@ public class FPasswordView extends FrameLayout
             itemTextColor = a.getColor(R.styleable.LibPasswordView_pvItemTextColor, itemTextColor);
             itemTextSize = a.getDimensionPixelSize(R.styleable.LibPasswordView_pvItemTextSize, itemTextSize);
             itemMargin = a.getDimensionPixelSize(R.styleable.LibPasswordView_pvItemMargin, itemMargin);
+            itemWidth = a.getDimensionPixelSize(R.styleable.LibPasswordView_pvItemWidth, itemWidth);
             itemSquare = a.getBoolean(R.styleable.LibPasswordView_pvItemSquare, itemSquare);
 
             if (a.hasValue(R.styleable.LibPasswordView_pvItemBackground))
@@ -81,6 +84,7 @@ public class FPasswordView extends FrameLayout
         mItemTextColor = itemTextColor;
         mItemTextSize = itemTextSize;
         mItemMargin = itemMargin;
+        mItemWidth = itemWidth;
         mItemDivider = itemDivider;
         mItemBackground = itemBackground;
         mItemSquare = itemSquare;
@@ -132,7 +136,9 @@ public class FPasswordView extends FrameLayout
                 else
                     textView.setBackgroundResource(mItemBackground);
 
-                final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+                final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(mItemWidth, ViewGroup.LayoutParams.MATCH_PARENT);
+                params.weight = mItemWidth == 0 ? 1 : 0;
+
                 if (i > 0)
                     params.leftMargin = mItemMargin;
 
