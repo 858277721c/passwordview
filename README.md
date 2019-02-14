@@ -24,6 +24,7 @@
 <com.sd.lib.passwordview.FPasswordView
     android:layout_width="wrap_content"
     android:layout_height="35dp"
+    app:pvInputType="number"
     app:pvItemBackground="@drawable/bg_underline_gray"
     app:pvItemBackgroundFill="@drawable/bg_underline_black"
     app:pvItemMargin="5dp"

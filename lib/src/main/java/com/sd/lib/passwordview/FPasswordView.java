@@ -60,6 +60,7 @@ public class FPasswordView extends FrameLayout
         int itemBackgroundFill = 0;
         boolean itemSquare = false;
         String passwordPlaceholder = getResources().getString(R.string.lib_passwordview_password_placeholder);
+        int inputType = 0;
 
         if (attrs != null)
         {
@@ -81,6 +82,8 @@ public class FPasswordView extends FrameLayout
             if (a.hasValue(R.styleable.LibPasswordView_pvPasswordPlaceholder))
                 passwordPlaceholder = a.getString(R.styleable.LibPasswordView_pvPasswordPlaceholder);
 
+            inputType = a.getInt(R.styleable.LibPasswordView_pvInputType, inputType);
+
             a.recycle();
         }
 
@@ -93,6 +96,9 @@ public class FPasswordView extends FrameLayout
         mItemBackgroundFill = itemBackgroundFill;
         mItemSquare = itemSquare;
         mPasswordPlaceholder = passwordPlaceholder;
+
+        if (inputType != 0)
+            setInputType(inputType);
 
         setItemCount(itemCount);
     }
