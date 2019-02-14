@@ -22,7 +22,7 @@
     <com.sd.lib.passwordview.FPasswordView
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        app:pvItemBackground="@drawable/sel_white_stroke_black_red_corner"
+        app:pvItemBackground="@drawable/bg_white_stroke_black_corner"
         app:pvItemMargin="10dp"
         app:pvItemSquare="true" />
 
@@ -33,7 +33,7 @@
     <com.sd.lib.passwordview.FPasswordView
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        app:pvItemBackground="@drawable/bg_underline"
+        app:pvItemBackground="@drawable/sel_bg_underline"
         app:pvItemMargin="10dp"
         app:pvItemWidth="50dp"
         app:pvPasswordPlaceholder="" />
