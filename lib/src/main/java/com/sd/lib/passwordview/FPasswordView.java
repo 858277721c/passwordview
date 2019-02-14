@@ -196,12 +196,9 @@ public class FPasswordView extends FrameLayout
             if (event.getAction() == MotionEvent.ACTION_DOWN)
             {
                 final InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (!manager.isActive(this))
-                {
-                    setFocusable(true);
-                    requestFocus();
-                    manager.showSoftInput(this, InputMethodManager.SHOW_FORCED);
-                }
+                setFocusable(true);
+                requestFocus();
+                manager.showSoftInput(this, InputMethodManager.SHOW_FORCED);
             }
             return false;
         }
