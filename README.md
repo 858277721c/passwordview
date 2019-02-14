@@ -31,6 +31,27 @@
     app:pvPasswordPlaceholder="" />
 ```
 
+```java
+/**
+ * 设置只允许输入数字
+ */
+mPasswordView.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
+/**
+ * 设置输入内容变化回调
+ */
+mPasswordView.setCallback(new FPasswordView.Callback()
+{
+    @Override
+    public void onTextChanged(String text)
+    {
+        Log.i(TAG, "onTextChanged:" + text);
+
+        if (text.length() == mPasswordView.getItemCount())
+            Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
+    }
+});
+```
+
 # 支持的xml属性
 ```xml
 <resources>
