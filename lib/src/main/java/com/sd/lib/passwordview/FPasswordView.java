@@ -130,11 +130,7 @@ public class FPasswordView extends FrameLayout
                 textView.setGravity(Gravity.CENTER);
                 textView.setTextColor(mItemTextColor);
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mItemTextSize);
-
-                if (mItemBackground == 0)
-                    textView.setBackgroundColor(0);
-                else
-                    textView.setBackgroundResource(mItemBackground);
+                textView.setBackgroundResource(mItemBackground);
 
                 final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(mItemWidth, ViewGroup.LayoutParams.MATCH_PARENT);
                 params.weight = mItemWidth == 0 ? 1 : 0;
