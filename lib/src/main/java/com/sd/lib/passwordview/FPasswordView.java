@@ -187,6 +187,8 @@ public class FPasswordView extends FrameLayout
 
     private final class InternalEditText extends EditText
     {
+        private String mLastText = "";
+
         public InternalEditText(Context context)
         {
             super(context);
@@ -212,9 +214,16 @@ public class FPasswordView extends FrameLayout
         protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter)
         {
             super.onTextChanged(text, start, lengthBefore, lengthAfter);
-            bindText(text.toString());
-            if (mCallback != null)
-                mCallback.onTextChanged(text.toString());
+
+            final String newText = text.toString();
+            if (!newText.equals(mLastText))
+            {
+                mLastText = newText;
+
+                bindText(newText);
+                if (mCallback != null)
+                    mCallback.onTextChanged(newText);
+            }
         }
 
         @Override
