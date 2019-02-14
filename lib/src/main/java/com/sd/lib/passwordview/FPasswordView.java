@@ -119,7 +119,7 @@ public class FPasswordView extends FrameLayout
 
             for (int i = 0; i < count; i++)
             {
-                final TextView textView = new TextView(getContext());
+                final TextView textView = new InternalTextView(getContext());
                 textView.setGravity(Gravity.CENTER);
                 textView.setTextColor(mItemTextColor);
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mItemTextSize);
@@ -151,6 +151,14 @@ public class FPasswordView extends FrameLayout
 
             final TextView child = (TextView) mLinearLayout.getChildAt(i);
             child.setText(itemText);
+        }
+    }
+
+    private final class InternalTextView extends TextView
+    {
+        public InternalTextView(Context context)
+        {
+            super(context);
         }
     }
 
