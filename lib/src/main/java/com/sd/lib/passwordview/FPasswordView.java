@@ -134,6 +134,14 @@ public class FPasswordView extends FrameLayout
     }
 
     /**
+     * 清空输入的内容
+     */
+    public void clear()
+    {
+        mEditText.setText("");
+    }
+
+    /**
      * 设置密码长度
      *
      * @param count
