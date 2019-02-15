@@ -272,7 +272,9 @@ public class FPasswordView extends FrameLayout
             {
                 setFocusable(true);
                 requestFocus();
-                manager.showSoftInput(this, InputMethodManager.SHOW_FORCED);
+                manager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT);
+                if (!manager.isActive())
+                    manager.showSoftInput(this, InputMethodManager.SHOW_FORCED);
             } else
             {
                 manager.hideSoftInputFromWindow(getWindowToken(), 0);
