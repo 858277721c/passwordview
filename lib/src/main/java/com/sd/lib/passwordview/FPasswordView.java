@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 public class FPasswordView extends FrameLayout
 {
-    private final EditText mEditText;
+    private final InternalEditText mEditText;
     private final LinearLayout mLinearLayout;
 
     private int mItemCount;
@@ -142,6 +142,16 @@ public class FPasswordView extends FrameLayout
     }
 
     /**
+     * 显示隐藏输入法
+     *
+     * @param show
+     */
+    public void showKeyboard(boolean show)
+    {
+        mEditText.showKeyboard(show);
+    }
+
+    /**
      * 设置密码长度
      *
      * @param count
@@ -250,12 +260,23 @@ public class FPasswordView extends FrameLayout
         {
             if (event.getAction() == MotionEvent.ACTION_DOWN)
             {
-                final InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                showKeyboard(true);
+            }
+            return false;
+        }
+
+        public void showKeyboard(boolean show)
+        {
+            final InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (show)
+            {
                 setFocusable(true);
                 requestFocus();
                 manager.showSoftInput(this, InputMethodManager.SHOW_FORCED);
+            } else
+            {
+                manager.hideSoftInputFromWindow(getWindowToken(), 0);
             }
-            return false;
         }
 
         @Override
