@@ -35,6 +35,7 @@ public class FPasswordView extends FrameLayout
     private boolean mItemSquare;
 
     private String mPasswordPlaceholder;
+    private String mLockContent;
 
     private Callback mCallback;
 
@@ -131,6 +132,16 @@ public class FPasswordView extends FrameLayout
     public void setInputType(int type)
     {
         mEditText.setInputType(type);
+    }
+
+    /**
+     * 锁定当前输入的内容
+     *
+     * @param lock
+     */
+    public void lockContent(boolean lock)
+    {
+        mLockContent = lock ? mEditText.getText().toString() : null;
     }
 
     /**
@@ -287,6 +298,13 @@ public class FPasswordView extends FrameLayout
             super.onTextChanged(text, start, lengthBefore, lengthAfter);
 
             final String newText = text.toString();
+            if (mLockContent != null)
+            {
+                if (!mLockContent.equals(newText))
+                    setText(mLockContent);
+                return;
+            }
+
             if (!newText.equals(mLastText))
             {
                 mLastText = newText;
